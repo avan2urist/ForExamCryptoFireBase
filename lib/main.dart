@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/account_screen.dart';
+import 'package:flutter_firebase_auth/crypto_coin_screen.dart';
+import 'package:flutter_firebase_auth/crypto_list.dart';
 import 'package:flutter_firebase_auth/firebase_streem.dart';
 import 'package:flutter_firebase_auth/home_screen.dart';
 import 'package:flutter_firebase_auth/login_screen.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignUpScreen(),
         '/reset_password': (context) => const ResetPasswordScreen(),
         '/verify_email': (context) => const VerifyEmailScreen(),
+        '/crypto_list': (context) => const CryptoListScreen(),
+        '/coin': (context) => const CryptoCoinScreen(),
       },
       initialRoute: '/',
     );
