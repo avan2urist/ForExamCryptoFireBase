@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"authforcollege","appId":"1:796768719038:android:8fb176fb947140ef3c4eef","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"authforcollege","configurations":{"android":"1:796768719038:android:8fb176fb947140ef3c4eef","ios":"1:796768719038:ios:d18ecb4156895dec3c4eef"}}}}}}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "796768719038",
+    "project_id": "authforcollege",
+    "storage_bucket": "authforcollege.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796768719038:android:8fb176fb947140ef3c4eef",
+        "android_client_info": {
+          "package_name": "com.example.crypto_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCytyW63eldkHeMs5ouSepeRYYcEEk1Ipo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
