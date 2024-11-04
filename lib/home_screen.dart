@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/account_screen.dart';
+import 'package:flutter_firebase_auth/crypto_list.dart';
 import 'package:flutter_firebase_auth/login_screen.dart';
 
 final darktheme = ThemeData(
@@ -97,11 +98,11 @@ class HomeScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 20),
-                            // Изображение с округлением
+
                             ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: Image.asset(
-                                'assets/images/crypto_image.jpeg', // Укажите путь к вашему изображению
+                                'assets/images/crypto_image.jpeg',
                                 height: 200,
                                 fit: BoxFit.cover,
                               ),
@@ -135,8 +136,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                      height: 20), // Отступ между контейнером и кнопкой
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if ((user == null)) {
@@ -156,16 +156,38 @@ class HomeScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 15),
-                      backgroundColor: darktheme.primaryColor, // Цвет кнопки
+                      backgroundColor: darktheme.primaryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(10), // Округленные углы
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Переход к аккаунту',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CryptoListScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
+                      backgroundColor: darktheme.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: const Text(
                       'Начать отслеживание',
-                      style:
-                          TextStyle(fontSize: 20), // Увеличенный размер текста
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 ],
