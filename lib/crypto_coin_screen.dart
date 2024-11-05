@@ -12,15 +12,13 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies(); // Вызовите super в начале метода
+    super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments;
 
-    // Проверяем, что аргумент не null и является строкой
     if (args != null && args is String) {
-      coinName = args; // Получаем название криптовалюты
+      coinName = args;
     } else {
-      coinName =
-          'Unknown Coin'; // Обработка случая, если аргумент не был передан
+      coinName = 'Unknown Coin';
     }
     setState(() {});
   }
@@ -29,12 +27,11 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(coinName ?? '...'), // Отображаем название криптовалюты
+        title: Text(coinName ?? '...'),
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-            'Details for $coinName'), // Отображаем информацию о криптовалюте
+        child: Text('Details for $coinName'),
       ),
     );
   }

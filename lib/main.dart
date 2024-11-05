@@ -8,6 +8,7 @@ import 'package:flutter_firebase_auth/home_screen.dart';
 import 'package:flutter_firebase_auth/login_screen.dart';
 import 'package:flutter_firebase_auth/reset_password_screen.dart';
 import 'package:flutter_firebase_auth/signup.dart.dart';
+import 'package:flutter_firebase_auth/theme.dart';
 import 'package:flutter_firebase_auth/verify_email_screen.dart';
 
 Future<void> main() async {

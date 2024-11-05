@@ -29,7 +29,7 @@ class _AccountScreenState extends State<AccountScreen> {
             Navigator.pop(context);
           },
           icon: const Icon(
-            Icons.arrow_back_ios, // add custom icons also
+            Icons.arrow_back_ios,
           ),
         ),
         title: const Text('Аккаунт'),
@@ -46,9 +46,14 @@ class _AccountScreenState extends State<AccountScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Ваш Email: ${user?.email}'),
-            TextButton(
-              onPressed: () => signOut(),
-              child: const Text('Выйти'),
+            const Padding(padding: EdgeInsets.all(15)),
+            ElevatedButton(
+              onPressed: signOut,
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                  maximumSize: Size.fromWidth(150)),
+              child: const Center(child: Text('Выйти')),
             ),
           ],
         ),
