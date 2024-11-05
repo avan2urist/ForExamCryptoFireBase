@@ -41,24 +41,63 @@ class _LoginScreenState extends State<LoginScreen> {
         email: emailTextInputController.text.trim(),
         password: passwordTextInputController.text.trim(),
       );
+      // Вошел ура
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      print('Ошибка: ${e.code}');
 
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-        SnackBarService.showSnackBar(
-          context,
-          'Неправильный email или пароль. Повторите попытку',
-          true,
-        );
-        return;
-      } else {
-        SnackBarService.showSnackBar(
-          context,
-          'Неизвестная ошибка! Попробуйте еще раз или обратитесь в поддержку.',
-          true,
-        );
-        return;
+      // Ищу ошибку
+      switch (e.code) {
+        case 'user-not-found':
+          SnackBarService.showSnackBar(
+            context,
+            'Пользователь с таким email не найден.',
+            true,
+          );
+          break;
+        case 'wrong-password':
+          SnackBarService.showSnackBar(
+            context,
+            'Неверный пароль. Попробуйте еще раз.',
+            true,
+          );
+          break;
+        case 'invalid-email':
+          SnackBarService.showSnackBar(
+            context,
+            'Неверный формат email.',
+            true,
+          );
+          break;
+        case 'user-disabled':
+          SnackBarService.showSnackBar(
+            context,
+            'Эта учетная запись была отключена.',
+            true,
+          );
+          break;
+        case 'operation-not-allowed':
+          SnackBarService.showSnackBar(
+            context,
+            'Аутентификация с email/пароль не включена.',
+            true,
+          );
+          break;
+        default:
+          print('Вот она проблема ттууууууууууууут: ${e.toString()}');
+          SnackBarService.showSnackBar(
+            context,
+            'Данные введены неправильно, попробуйте еще раз',
+            true,
+          );
       }
+    } catch (e) {
+      // Еще ищу
+      print('Неизвестная ошибка: ${e.toString()}');
+      SnackBarService.showSnackBar(
+        context,
+        'Неизвестная ошибка: ${e.toString()}',
+        true,
+      );
     }
 
     navigator.pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
@@ -85,9 +124,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     email != null && !EmailValidator.validate(email)
                         ? 'Введите правильный Email'
                         : null,
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Введите Email',
+                  hintStyle: TextStyle(color: Colors.white),
                 ),
               ),
               const SizedBox(height: 30),
@@ -98,10 +139,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 validator: (value) => value != null && value.length < 6
                     ? 'Минимум 6 символов'
                     : null,
+                style: const TextStyle(color: Colors.white),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   hintText: 'Введите пароль',
+                  hintStyle: const TextStyle(color: Colors.white),
                   suffix: InkWell(
                     onTap: togglePasswordView,
                     child: Icon(
@@ -116,22 +159,30 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: login,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                ),
                 child: const Center(child: Text('Войти')),
               ),
-              const SizedBox(height: 30),
-              TextButton(
+              const SizedBox(height: 10),
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pushNamed('/signup'),
-                child: const Text(
-                  'Регистрация',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
                 ),
+                child: const Center(child: Text('Регистрация')),
               ),
-              TextButton(
+              const SizedBox(height: 10),
+              ElevatedButton(
                 onPressed: () =>
                     Navigator.of(context).pushNamed('/reset_password'),
-                child: const Text('Сбросить пароль'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                ),
+                child: const Center(child: Text('Сбросить пароль')),
               ),
             ],
           ),

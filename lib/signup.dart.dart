@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth/login_screen.dart';
 import 'package:flutter_firebase_auth/snack_bar.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -97,9 +98,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                     email != null && !EmailValidator.validate(email)
                         ? 'Введите правильный Email'
                         : null,
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Введите Email',
+                  hintStyle: TextStyle(color: Colors.white),
                 ),
               ),
               const SizedBox(height: 30),
@@ -111,9 +114,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                 validator: (value) => value != null && value.length < 6
                     ? 'Минимум 6 символов'
                     : null,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   hintText: 'Введите пароль',
+                  hintStyle: const TextStyle(color: Colors.white),
                   suffix: InkWell(
                     onTap: togglePasswordView,
                     child: Icon(
@@ -134,9 +139,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                 validator: (value) => value != null && value.length < 6
                     ? 'Минимум 6 символов'
                     : null,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   hintText: 'Введите пароль еще раз',
+                  hintStyle: const TextStyle(color: Colors.white),
                   suffix: InkWell(
                     onTap: togglePasswordView,
                     child: Icon(
@@ -151,17 +158,25 @@ class _SignUpScreen extends State<SignUpScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: signUp,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                ),
                 child: const Center(child: Text('Регистрация')),
               ),
-              const SizedBox(height: 30),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text(
-                  'Войти',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
                 ),
+                child: const Center(child: Text('Войти')),
               ),
             ],
           ),

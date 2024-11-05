@@ -82,14 +82,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     email != null && !EmailValidator.validate(email)
                         ? 'Введите правильный Email'
                         : null,
+                style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Введите Email',
-                ),
+                    border: OutlineInputBorder(),
+                    hintText: 'Введите Email',
+                    hintStyle: TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: resetPassword,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                ),
                 child: const Center(child: Text('Сбросить пароль')),
               ),
             ],

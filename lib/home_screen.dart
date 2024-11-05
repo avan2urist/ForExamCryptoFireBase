@@ -2,44 +2,67 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth/account_screen.dart';
 import 'package:flutter_firebase_auth/crypto_list.dart';
-import 'package:flutter_firebase_auth/login_screen.dart';
+import 'package:flutter_firebase_auth/news.dart';
+import 'package:flutter_firebase_auth/signup.dart.dart';
 
-final darktheme = ThemeData(
-  primaryColor: const Color.fromARGB(255, 248, 236, 128),
-  textTheme: const TextTheme(
-    bodyMedium: TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w500,
-      fontSize: 20,
-    ),
-    bodySmall: TextStyle(
-      color: Color.fromARGB(110, 255, 255, 255),
-      fontWeight: FontWeight.w700,
-      fontSize: 14,
-    ),
-  ),
-  scaffoldBackgroundColor: const Color.fromARGB(66, 80, 80, 80),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Color.fromARGB(66, 114, 114, 114),
-    titleTextStyle: TextStyle(
-      color: Colors.white,
-      fontSize: 25,
-      fontWeight: FontWeight.w700,
-    ),
-  ),
-  dividerColor: Colors.white12,
-  listTileTheme: const ListTileThemeData(iconColor: Colors.white),
-);
+import 'package:flutter_firebase_auth/theme.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      if (index == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SignUpScreen()),
+        );
+      } else if (index == 1) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text(
+                  'Чтобы посмотреть новости, пожалуйста, зарегистрируйтесь.')),
+        );
+      }
+    } else {
+      if (index == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CryptoListScreen()),
+        );
+      } else if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AccountScreen()),
+        );
+      } else if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MentalHealthNewsScreen()),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Добро пожаловать!'),
@@ -85,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (user == null) ...[
-                            // Текст для незарегистрированных пользователей
+                            // анрег юзер
                             Text(
                               "Вы скачали приложение для отслеживания актуального курса криптовалют!",
                               style: Theme.of(context)
@@ -98,7 +121,6 @@ class HomeScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 20),
-
                             ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: Image.asset(
@@ -108,26 +130,14 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ] else ...[
-                            // Текст для зарегистрированных пользователей
-                            Text(
-                              'Вы скачали приложение для отслеживания актуального курса криптовалют!!',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 20),
+                            // для рег юзер
                             Text(
                               'Добро пожаловать, ${user.email}!',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                    fontSize: 16,
+                                    fontSize: 25,
                                   ),
                               textAlign: TextAlign.center,
                             ),
@@ -136,65 +146,44 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      if ((user == null)) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AccountScreen()),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      backgroundColor: darktheme.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Переход к аккаунту',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CryptoListScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      backgroundColor: darktheme.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Начать отслеживание',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: user == null
+            ? [
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Регистрация',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.article),
+                  label: 'Новости',
+                ),
+              ]
+            : [
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.track_changes),
+                  label: 'Криптовалюты',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Аккаунт',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.article),
+                  label: 'Новости',
+                ),
+              ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
