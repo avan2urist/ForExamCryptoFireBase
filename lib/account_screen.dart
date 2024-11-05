@@ -52,7 +52,7 @@ class _AccountScreenState extends State<AccountScreen> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[800],
                   foregroundColor: Colors.white,
-                  maximumSize: Size.fromWidth(150)),
+                  maximumSize: const Size.fromWidth(150)),
               child: const Center(child: Text('Выйти')),
             ),
           ],

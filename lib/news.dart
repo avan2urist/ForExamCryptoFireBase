@@ -67,6 +67,7 @@ class _MentalHealthNewsScreenState extends State<MentalHealthNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: darktheme,
       home: Scaffold(
         appBar: AppBar(
@@ -86,17 +87,23 @@ class _MentalHealthNewsScreenState extends State<MentalHealthNewsScreen> {
                 itemBuilder: (context, index) {
                   final article = articles[index];
                   return Card(
-                    margin: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(12),
                     color: const Color.fromARGB(66, 114, 114, 114),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: article.imageUrl,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(15)),
+                          child: CachedNetworkImage(
+                            imageUrl: article.imageUrl,
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -105,16 +112,14 @@ class _MentalHealthNewsScreenState extends State<MentalHealthNewsScreen> {
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white), // Установите цвет текста
+                                color: Colors.white),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: Text(
                             article.description,
-                            style: const TextStyle(
-                                color:
-                                    Colors.white70), // Установите цвет текста
+                            style: const TextStyle(color: Colors.white70),
                           ),
                         ),
                         Padding(
@@ -124,10 +129,9 @@ class _MentalHealthNewsScreenState extends State<MentalHealthNewsScreen> {
                               launch(article.url);
                             },
                             child: const Text(
-                              'Читать далее',
+                              'Читать далее...',
                               style: TextStyle(
-                                  color: Color.fromARGB(
-                                      255, 248, 236, 128)), // Цвет кнопки
+                                  color: Color.fromARGB(255, 248, 236, 128)),
                             ),
                           ),
                         ),

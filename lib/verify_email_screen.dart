@@ -66,7 +66,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         SnackBarService.showSnackBar(
           context,
           '$e',
-          //'Неизвестная ошибка! Попробуйте еще раз или обратитесь в поддержку.',
           true,
         );
       }
